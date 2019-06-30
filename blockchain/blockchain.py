@@ -1,3 +1,27 @@
+from hashlib import sha256
+
+from django.utils.timezone import datetime
+
+
+class Block:
+    def __init__(self, transactions, previous_hash, nonce=0):
+        self.timestamp = datetime.now()
+        self.transactions = transactions
+        self.previous_hash = previous_hash
+        self.nonce = nonce
+        self.hash = self.hash()
+
+    def print_block(self):
+        print('timestamp: {}'.format(self.timestamp))
+        print('transactions: {}'.format(self.transactions))
+        print('current hash: {}'.format(self.hash()))
+
+    def hash(self):
+        block_header = str(self.timestamp) + str(self.transactions) + str(self.previous_hash) + str(self.nonce)
+        block_hash = sha256(block_header.encode())
+        return block_hash.hexdigest()
+
+
 class BlockChain:
     """블록체인
 
@@ -8,14 +32,14 @@ class BlockChain:
 
     블록 헤더
     version: 소프트웨어, 프로토콜 버전
-    previousblockhash: 블록체인에서 바로 이전 블록의 블록 헤더 해시값
-    merklehash: 개별 거래 정보의 거래 해시를 2진 트리 형태로 구성할 때, 트리 루트에 위치하는 해시값
+    previous_block_hash: 블록체인에서 바로 이전 블록의 블록 헤더 해시값
+    merkle_hash: 개별 거래 정보의 거래 해시를 2진 트리 형태로 구성할 때, 트리 루트에 위치하는 해시값
     time: 블록 생성 시각
     bits: 난이도 조절용 수치
     nonce: 최초 0에서 시작하여 조건을 만족하는 해쉬값을 찾아낼때까지의 1씩 증가하는 계산 횟수
     """
 
-    def __init__(self):
+    def __init__(self, transactions, previous_block_hash, nonce=0):
         self.chain = []
         self.current_transactions = []
 
