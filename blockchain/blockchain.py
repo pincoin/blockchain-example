@@ -1,21 +1,11 @@
-class Block:
-    def __init__(self, index, hash, previous_block_hash, timestamp, data, difficulty, nonce):
-        """Constructor for block
+from .block import Block
 
-        Parameters
-        ----------
-        index : block counter
-        hash : current block hash
-        previous_block_hash : previous block hash to mingle with current block hash
-        timestamp : timestamp when block is created
-        data : block data such as transactions
-        difficulty :
-        nonce :
-        """
-        self.index = index
-        self.hash = hash
-        self.previous_block_hash = previous_block_hash
-        self.timestamp = timestamp
-        self.data = data
-        self.difficulty = difficulty
-        self.nonce = nonce
+genesis_block = Block(
+    0,
+    '9BBCB57B172A75ACD6AFA7DFA7BD852818788B44BFC5B1C6E8E4E6919C799370',
+    None,
+    1562084809,
+    'This is a genesis block.',
+)
+
+block_chain = [genesis_block, ]
