@@ -1,3 +1,5 @@
+from django.utils.timezone import now
+
 from .block import Block
 
 GENESIS_BLOCK = Block(
@@ -9,3 +11,17 @@ GENESIS_BLOCK = Block(
 )
 
 block_chain = [GENESIS_BLOCK, ]
+
+
+def get_last_block():
+    return block_chain[-1]
+
+
+def get_timestamp():
+    return now().timestamp()
+
+
+def create_new_block():
+    previous_block = get_last_block()
+    new_block_index = previous_block.index + 1
+    new_timestamp = get_timestamp()
