@@ -25,6 +25,12 @@ class Blockchain:
         return self.chain[-1]
 
     def validate_new_block(self, new_block):
+        """ Others may add a block, check if validated.
+
+        :param new_block: candidate block to add
+        :return: validity
+        """
+
         if self.last_block.index + 1 != new_block.index:
             self.logger.error('invalid block: new block index is not consecutive.')
             return False
@@ -39,3 +45,16 @@ class Blockchain:
             return False
 
         return True
+
+    def validate_block_structure(self, block):
+        """ Check if block structure is validated
+
+        :param block:
+        :return:
+        """
+
+        return isinstance(block.index, int) \
+               and isinstance(block.hash, str) \
+               and isinstance(block.previous_block_hash, str) \
+               and isinstance(block.timestamp, float) \
+               and isinstance(block.data, str)
