@@ -1,27 +1,21 @@
-from django.utils.timezone import now
-
 from .block import Block
 
-GENESIS_BLOCK = Block(
-    0,
-    '9BBCB57B172A75ACD6AFA7DFA7BD852818788B44BFC5B1C6E8E4E6919C799370',
-    None,
-    1562084809,
-    'This is a genesis block.',
-)
-
-block_chain = [GENESIS_BLOCK, ]
+GENESIS_BLOCK_DATA = 'This is a genesis block.'
+GENESIS_BLOCK_TIMESTAMP = 1562132041
 
 
-def get_last_block():
-    return block_chain[-1]
+class Blockchain:
+    def __init__(self):
+        self.chain = [self.genesis_block, ]
 
+    def new_block(self, data):
+        block = Block(self.last_block.index + 1, self.last_block.hash, data)
+        self.chain.append(block)
 
-def get_timestamp():
-    return now().timestamp()
+    @property
+    def genesis_block(self):
+        return Block(index=0, previous_block_hash=None, data=GENESIS_BLOCK_DATA, timestamp=GENESIS_BLOCK_TIMESTAMP)
 
-
-def create_new_block():
-    previous_block = get_last_block()
-    new_block_index = previous_block.index + 1
-    new_timestamp = get_timestamp()
+    @property
+    def last_block(self):
+        return self.chain[-1]
