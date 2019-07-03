@@ -1,6 +1,6 @@
 from .block import Block
 
-genesis_block = Block(
+GENESIS_BLOCK = Block(
     0,
     '9BBCB57B172A75ACD6AFA7DFA7BD852818788B44BFC5B1C6E8E4E6919C799370',
     None,
@@ -8,4 +8,4 @@ genesis_block = Block(
     'This is a genesis block.',
 )
 
-block_chain = [genesis_block, ]
+block_chain = [GENESIS_BLOCK, ]
