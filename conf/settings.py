@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS += [
-    'channels',
-]
+INSTALLED_APPS = [
+                     'channels',
+                     'blockchain',
+                 ] + INSTALLED_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
