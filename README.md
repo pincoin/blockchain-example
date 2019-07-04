@@ -1,2 +1,3 @@
-# blockchain-example
-blockchain example using Python
+# PINCOIN
+
+PINCOIN, toy blockchain and cryptocurrency made in Python/Django 
