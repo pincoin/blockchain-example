@@ -43,7 +43,7 @@ class Blockchain:
         return True
 
     def replace(self, chain):
-        """ Replace chain with new and longer chain
+        """ Update chain with the newer and longer chain
 
         :param chain:
         :return:
