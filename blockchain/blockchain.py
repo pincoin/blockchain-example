@@ -31,6 +31,11 @@ class Blockchain:
         return self.chain[-1]
 
     def validate(self, chain):
+        """ Check if new candidate chain is valid
+
+        :param chain: the new candidate chain
+        :return: True if valid, False otherwise
+        """
         if json.dumps(self.genesis_block) != json.dumps(chain[0]):
             self.logger.error('genesis block is invalid.')
             return False
@@ -45,8 +50,8 @@ class Blockchain:
     def replace(self, chain):
         """ Update chain with the newer and longer chain
 
-        :param chain:
-        :return:
+        :param chain: the new candidate chain
+        :return: True if valid, False otherwise
         """
         if chain.validate() and len(chain) > len(self.chain):
             self.chain = chain

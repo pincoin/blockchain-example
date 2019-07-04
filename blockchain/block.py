@@ -32,17 +32,17 @@ class Block:
     def create_hash(self):
         """ Generate fingerprint of current block by mangling previous block hash
 
-        :return:
+        :return: block hash
         """
         block_contents = str(self.index) + str(self.previous_block_hash) + str(self.timestamp) + self.data
         block_hash = sha256(block_contents.encode())
         return block_hash.hexdigest()
 
     def validate(self, last_block):
-        """ Others may add a block, check if validated.
+        """ Others may add a block, check if valid
 
         :param last_block: previous block
-        :return: validity
+        :return: True if valid, False otherwise
         """
 
         if isinstance(self.index, int) \
