@@ -15,7 +15,12 @@ class Blockchain:
 
     def new_block(self, data):
         block = Block(self.last_block.index + 1, self.last_block.hash, data)
-        self.chain.append(block)
+
+        if block.validate(self.last_block):
+            self.chain.append(block)
+            return block
+
+        return False
 
     @property
     def genesis_block(self):
@@ -36,3 +41,15 @@ class Blockchain:
                 return False
 
         return True
+
+    def replace(self, chain):
+        """ Replace chain with new and longer chain
+
+        :param chain:
+        :return:
+        """
+        if chain.validate() and len(chain) > len(self.chain):
+            self.chain = chain
+            return True
+
+        return False
