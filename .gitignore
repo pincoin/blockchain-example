@@ -125,6 +125,7 @@ fabric.properties
 
 # conf
 db.sqlite3
+dump.rdb
 assets/
 media/
 sandbox/settings/secret.py
