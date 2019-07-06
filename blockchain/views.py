@@ -2,9 +2,11 @@ import json
 
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
-from django.views import generic
+from rest_framework import views
+from rest_framework.response import Response
 
 from .blockchain import Blockchain
+from .serializers import BlockSerializer
 
 
 def index(request):
@@ -17,9 +19,8 @@ def room(request, room_name):
     })
 
 
-class BlockchainListView(generic.ListView):
-    context_object_name = 'blocks'
-    template_name = 'blockchain/blockchain_list.html'
-
-    def get_queryset(self):
-        return Blockchain().chain
+class BlockchainListView(views.APIView):
+    def get(self, request):
+        chain = Blockchain().chain
+        results = BlockSerializer(chain, many=True).data
+        return Response(results)
