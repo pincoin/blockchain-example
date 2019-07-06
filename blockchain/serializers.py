@@ -9,3 +9,7 @@ class BlockSerializer(serializers.Serializer):
     timestamp = serializers.IntegerField()
     previous_block_hash = serializers.CharField()
     hash = serializers.CharField()
+
+
+class PeerSerializer(serializers.Serializer):
+    peer = serializers.CharField()
