@@ -1,4 +1,3 @@
-import json
 import logging
 
 from . import settings as blockchain_settings
@@ -37,7 +36,7 @@ class Blockchain:
         :param chain: the new candidate chain
         :return: True if valid, False otherwise
         """
-        if json.dumps(self.genesis_block) != json.dumps(chain[0]):
+        if self.genesis_block != chain[0]:
             self.logger.error('genesis block is invalid.')
             return False
 

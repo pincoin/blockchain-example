@@ -29,6 +29,22 @@ class Block:
         self.timestamp = timestamp if timestamp else datetime.now().timestamp()
         self.hash = self.create_hash()
 
+    def __eq__(self, other):
+        return self.index == other.index \
+               and self.previous_block_hash == other.previous_block_hash \
+               and self.data == other.data \
+               and self.difficulty == other.difficulty \
+               and self.nonce == other.nonce \
+               and self.timestamp == other.timestamp
+
+    def __ne__(self, other):
+        return not (self.index == other.index
+                    and self.previous_block_hash == other.previous_block_hash
+                    and self.data == other.data
+                    and self.difficulty == other.difficulty
+                    and self.nonce == other.nonce
+                    and self.timestamp == other.timestamp)
+
     def create_hash(self):
         """ Generate fingerprint of current block by mangling previous block hash
 
