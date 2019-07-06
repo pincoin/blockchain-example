@@ -8,7 +8,7 @@ from django.utils.timezone import datetime
 class Block:
     logger = logging.getLogger(__name__)
 
-    def __init__(self, index, previous_block_hash, data, difficulty=2, nonce=0, timestamp=None):
+    def __init__(self, index, previous_block_hash, data, difficulty, nonce, timestamp=None):
         """ Constructor for a block
 
         :param index: block index counter

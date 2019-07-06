@@ -10,8 +10,8 @@ class Blockchain:
     def __init__(self):
         self.chain = [self.genesis_block, ]
 
-    def new_block(self, data):
-        block = Block(self.last_block.index + 1, self.last_block.hash, data)
+    def new_block(self, data, difficulty=2, nonce=0):
+        block = Block(self.last_block.index + 1, self.last_block.hash, data, difficulty=difficulty, nonce=nonce)
 
         if block.validate(self.last_block):
             self.chain.append(block)
@@ -24,6 +24,8 @@ class Blockchain:
         return Block(index=0,
                      previous_block_hash=None,
                      data=blockchain_settings.GENESIS_BLOCK_DATA,
+                     difficulty=2,
+                     nonce=0,
                      timestamp=blockchain_settings.GENESIS_BLOCK_TIMESTAMP)
 
     @property
