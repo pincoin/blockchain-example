@@ -8,13 +8,14 @@ PINCOIN, toy blockchain and cryptocurrency made in Python/Django
 * djangorestframework
 * channels
 * channels_redis
+* websockets
 
 # Cryptocurrency
 * Transactions (Confirmations)
 * Proof of Work (Mining)
 * Wallets
 * Decentralization
-* P2P with Websockets
+* P2P with WebSockets
 * Blockchain Explorer
 * REST API backends
 
