@@ -45,11 +45,11 @@ class Block:
         :return: True if valid, False otherwise
         """
 
-        if isinstance(self.index, int) \
-                and isinstance(self.hash, str) \
-                and isinstance(self.previous_block_hash, str) \
-                and isinstance(self.timestamp, float) \
-                and isinstance(self.data, str):
+        if not (isinstance(self.index, int)
+                and isinstance(self.hash, str)
+                and isinstance(self.previous_block_hash, str)
+                and isinstance(self.timestamp, float)
+                and isinstance(self.data, str)):
             self.logger.error('invalid block: block structure is broken.')
             return False
         elif last_block.index + 1 != self.index:
