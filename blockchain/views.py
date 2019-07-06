@@ -21,6 +21,7 @@ def room(request, room_name):
 
 class BlockchainListView(views.APIView):
     def get(self, request):
-        chain = Blockchain().chain
-        results = BlockSerializer(chain, many=True).data
+        blockchain = Blockchain()
+
+        results = BlockSerializer(blockchain.chain, many=True).data
         return Response(results)
