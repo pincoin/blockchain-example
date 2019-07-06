@@ -1,10 +1,8 @@
 import json
 import logging
 
+from . import settings as blockchain_settings
 from .block import Block
-
-GENESIS_BLOCK_DATA = 'This is a genesis block.'
-GENESIS_BLOCK_TIMESTAMP = 1562132041
 
 
 class Blockchain:
@@ -24,7 +22,10 @@ class Blockchain:
 
     @property
     def genesis_block(self):
-        return Block(index=0, previous_block_hash=None, data=GENESIS_BLOCK_DATA, timestamp=GENESIS_BLOCK_TIMESTAMP)
+        return Block(index=0,
+                     previous_block_hash=None,
+                     data=blockchain_settings.GENESIS_BLOCK_DATA,
+                     timestamp=blockchain_settings.GENESIS_BLOCK_TIMESTAMP)
 
     @property
     def last_block(self):
