@@ -15,4 +15,4 @@ class P2P:
         socket.save()
 
     def disconnect_from_peer(self, url):
-        pass
+        WebSocket.objects.filter(url=url).delete()
