@@ -8,26 +8,15 @@ class PeerConsumer(AsyncJsonWebsocketConsumer):
     logger = logging.getLogger(__name__)
 
     async def connect(self):
-        self.logger.info('connected')
-
         await self.accept()
+        self.logger.info('connected')
+        self.logger.info(dir(self))
 
     async def disconnect(self, close_code):
         self.logger.info('disconnected')
 
     async def receive_json(self, content):
         self.logger.debug(content['peer'])
-
-    async def init_socket(self, socket):
-        self.logger.info('push socket')
-
-        self.logger.info('register message handlers')
-
-        self.logger.info('register error handlers')
-
-        self.logger.info('send latest block')
-
-        self.logger.info('send all mempool to all')
 
 
 class EchoConsumer(AsyncConsumer):

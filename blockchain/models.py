@@ -4,8 +4,8 @@ from model_utils.models import TimeStampedModel
 
 
 class WebSocket(TimeStampedModel):
-    url = models.URLField(
-        verbose_name=_('url'),
+    uri = models.URLField(
+        verbose_name=_('URI'),
         unique=True,
     )
 
@@ -18,7 +18,7 @@ class WebSocket(TimeStampedModel):
         ]
 
     def __str__(self):
-        return '{} {}'.format(self.url, self.created)
+        return '{} {}'.format(self.uri, self.created)
 
 
 class Block(models.Model):
