@@ -1,67 +1,50 @@
-import json
+import logging
 
-from asgiref.sync import async_to_sync
 from channels.consumer import AsyncConsumer
-from channels.generic.websocket import WebsocketConsumer
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 
-class ChatConsumer(WebsocketConsumer):
-    def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
+class PeerConsumer(AsyncJsonWebsocketConsumer):
+    logger = logging.getLogger(__name__)
 
-        # Join room group
-        async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
-            self.channel_name
-        )
+    async def connect(self):
+        self.logger.info('connected')
 
-        self.accept()
+        await self.accept()
 
-    def disconnect(self, close_code):
-        # Leave room group
-        async_to_sync(self.channel_layer.group_discard)(
-            self.room_group_name,
-            self.channel_name
-        )
+    async def disconnect(self, close_code):
+        self.logger.info('disconnected')
 
-    # Receive message from WebSocket
-    def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+    async def receive_json(self, content):
+        self.logger.debug(content['peer'])
 
-        # Send message to room group
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': message
-            }
-        )
+    async def init_socket(self, socket):
+        self.logger.info('push socket')
 
-    # Receive message from room group
-    def chat_message(self, event):
-        message = event['message']
+        self.logger.info('register message handlers')
 
-        # Send message to WebSocket
-        self.send(text_data=json.dumps({
-            'message': message
-        }))
+        self.logger.info('register error handlers')
+
+        self.logger.info('send latest block')
+
+        self.logger.info('send all mempool to all')
 
 
 class EchoConsumer(AsyncConsumer):
+    logger = logging.getLogger(__name__)
+
     async def websocket_connect(self, event):
-        print('connected from client')
+        self.logger.info('connected from client')
         await self.send({
             "type": "websocket.accept",
         })
 
     async def websocket_receive(self, event):
-        print('received message')
+        self.logger.info('received message')
         await self.send({
             "type": "websocket.send",
             "text": event["text"],
         })
 
     async def websocket_disconnect(self, event):
-        print('disconnected')
+        self.logger.info('disconnected')
