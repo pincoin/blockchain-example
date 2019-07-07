@@ -4,4 +4,6 @@ from . import consumers
 
 websocket_urlpatterns = [
     path('ws/blockchain/<str:room_name>/', consumers.ChatConsumer),
+
+    path('ws/blockchain/echo', consumers.EchoConsumer),
 ]
