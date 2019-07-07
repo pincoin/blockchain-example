@@ -9,6 +9,7 @@ PINCOIN, toy blockchain and cryptocurrency made in Python/Django
 * channels
 * channels_redis
 * websockets
+* django-model-utils==3.2.0
 
 # Cryptocurrency
 * Transactions (Confirmations)
@@ -21,4 +22,5 @@ PINCOIN, toy blockchain and cryptocurrency made in Python/Django
 
 # Reference
 
-* [Nomadcoin made in Node.js](https://github.com/nomadcoders/nomadcoin/tree/master/src)
+* [Nomadcoin, the most awesome coin made in NodeJS](https://github.com/nomadcoders/nomadcoin/)
+* [A blockchain implementation in 200 lines of code](https://github.com/lhartikk/naivechain)
