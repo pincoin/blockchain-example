@@ -48,4 +48,5 @@ class P2P:
 
 async def connect(uri):
     async with websockets.connect(uri) as websocket:
-        pass
+        await asyncio.sleep(5)
+        print(websocket)

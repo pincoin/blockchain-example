@@ -8,11 +8,26 @@ class PeerConsumer(AsyncJsonWebsocketConsumer):
     logger = logging.getLogger(__name__)
 
     async def connect(self):
-        await self.accept()
         self.logger.info('connected')
+
+        self.channel_group_name = 'peer_group'
+
+        await self.channel_layer.group_add(
+            self.channel_group_name,
+            self.channel_name
+        )
+
+        self.logger.info('joined')
         self.logger.info(dir(self))
 
+        await self.accept()
+
     async def disconnect(self, close_code):
+        await self.channel_layer.group_discard(
+            self.channel_group_name,
+            self.channel_name
+        )
+
         self.logger.info('disconnected')
 
     async def receive_json(self, content):
